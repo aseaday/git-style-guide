@@ -25,7 +25,7 @@
 
 * 来自外部的标识符也是很好的用作分支的名字，例如来自 Github 的 Issue 的
   标号。
-  
+
   ```shell
   # GitHub issue #15
   $ git checkout -b issue-15
@@ -39,7 +39,7 @@
   person's name for the personal branches and *"master"* for the team-wide
   branch:
 * 当不同的人在同一个特性上工作的时候，这也许很方便去拥有个人的特性分支和一个面向全队的特性分支。
-  在这种情况下，将斜划线作为分支名的后缀，并接着一个人的名字来代表这个的个人分支，并用 master 
+  在这种情况下，将斜划线作为分支名的后缀，并接着一个人的名字来代表这个的个人分支，并用 master
   表示面向团队的分支。
 
   ```shell
@@ -60,7 +60,7 @@
 
 ## Commits
 
-* 每个提交应当只包含一个简单地的逻辑上的改变，不要在一个提交里改变多件事情。比如，如果一个 
+* 每个提交应当只包含一个简单地的逻辑上的改变，不要在一个提交里改变多件事情。比如，如果一个
   Patch 修复了一个Bug，又改变了一个功能的效率， 把它分开吧。
 
 * 不要将一个改变分成多个提交。 例如一个功能的实现和他对应的测试应当在一个提交里提交。
@@ -80,14 +80,13 @@
   # bad
   $ git commit -m "Quick fix"
   ```
-  
+
   来自终端的提交造成了一种不好的模式： 我必须包含所有事情在一行的空间里，这通常让人不知道你到底
   在这个提交信息里到底想说什么，
 
   概要行，通常是第一行应当是描述性而简明的，理想情况下，他应当不超过50个字符，用大写字母开头并且
-  有着迫切的表现欲。It should not end with a period since it is effectively the commit
-  *title*:
-  
+  有着迫切的表现欲。不应当以句号结尾, 这是一个*标题*
+
   ```shell
   # good - imperative present tense, capitalized, fewer than 50 characters
   Mark huge records as obsolete when clearing hinting faults
@@ -96,14 +95,10 @@
   fixed ActiveModel::Errors deprecation messages failing when AR was used outside of Rails.
   ```
 
-* After that should come a blank line followed by a more thorough
-  description. It should be wrapped to *72 characters* and explain *why*
-  the change is needed, *how* it addresses the issue and what *side-effects*
-  it might have.
-  
+* 在那之后，应当有一空行，然后跟着详细的描述，应当小于*72 字符* 和解释
+  *为什么* 需要需要变化, *如何*解决了这个 issue 和它拥有什么副作用。
 
-  It should also provide any pointers to related resources (eg. link to the
-  corresponding issue in a bug tracker):
+  应当提供尽可能的帮助和相关资源，例如连接到对应的 issue 的 bug tracer
 
   ```shell
   Short (50 chars or fewer) summary of changes
@@ -127,18 +122,17 @@
   Source http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
   ```
 
-  Ultimately, when writing a commit message, think about what you would need
-  to know if you run across the commit in a year from now.
+  最终，当你写完了一个 commit 的 message, 考虑一下你会遇到什么问题，在漫长的一
+  年之后。
 
-* If a *commit A* depends on another *commit B*, the dependency should be
-  stated in the message of *commit A*. Use the commit's hash when referring to
-  commits.
+* 如果 *commit A* 依赖于另一个 *commit B* ，依赖应当在你的提交里提及到，使用对应
+  的 hash 值来表示。
 
-  Similarly, if *commit A* solves a bug introduced by *commit B*, it should
-  be stated in the message of *commit A*.
+  相似的，如果 *commit A* 解决了一个 bug 被 *commit B* 引入的，这应当也被在
+  *commit A* 提及。
 
-* If a commit is going to be squashed to another commit use the `--squash` and
-  `--fixup` flags respectively, in order to make the intention clear:
+* 如果一个commit 将要被 squash 到另一个 commit 处，各自使用 `--squash` 和 `--fixup`
+  使得这些 commit 的目的更明显:
 
   ```shell
   $ git commit --squash f387cab2
@@ -149,44 +143,39 @@
 
 ## Merging
 
-* **Do not rewrite published history.** The repository's history is valuable in
-  its own right and it is very important to be able to tell *what actually
-  happened*. Altering published history is a common source of problems for
-  anyone working on the project.
+* **不要篡改提交历史** 仓库的历史本身就很宝贵并且它是十分重要的能够告诉
+  *实际发生了什么*。 修改历史是万恶之源对任何参与这个工程的人。
 
 * However, there are cases where rewriting history is legitimate. These are
   when:
+* 尽管如此，有些时候还是可以重写历史的：
 
-  * You are the only one working on the branch and it is not being reviewed.
+  * 你一个人孤军奋战，而且你的代码不会被人看到。
 
-  * You want to tidy up your branch (eg. squash commits) and/or rebase it onto
-    the "master" in order to merge it later.
+  * 你想清洁一点的你的分支，例如压缩commit 或者 rebase 他们到主分支为了更好的
+    的合并
 
-  That said, *never rewrite the history of the "master" branch* or any other
-  special branches (ie. used by production or CI servers).
+  最重要的，*不要重写你的 master 分支* 或者任何有特殊意义的分支(例如， 用来发布
+  的或者持续集成的)
 
-* Keep the history *clean* and *simple*. *Just before you merge* your branch:
+* 保持你的提交历史*干净* 和 *简单*，*在你 merget* 你的分支之前：
 
-    1. Make sure it conforms to the style guide and perform any needed actions
-       if it doesn't (squash/reorder commits, reword messages etc.)
+  1. 确保它符合 style guide 并且执行任何必要的操作如果他不符合的话，比如 squash
+     commmits, 重写你的 messages.
 
-    2. Rebase it onto the branch it's going to be merged to:
+  2. Rebase 这个分支到他将要合并的分支上。
 
-       ```shell
-       [my-branch] $ git fetch
-       [my-branch] $ git rebase origin/master
-       # then merge
-       ```
+     ```shell
+     [my-branch] $ git fetch
+     [my-branch] $ git rebase origin/master
+     # then merge
+     ```
+  这样有助于快速合并并且保持了一个干净的提交历史。
 
-       This results in a branch that can be applied directly to the end of the
-       "master" branch and results in a very simple history.
+  *(备注：这个策略更适合较短生命周期的分支，否则还是最好保持经常性的合并习惯
+  而不是 rebase)*
 
-       *(Note: This strategy is better suited for projects with short-running
-       branches. Otherwise it might be better to occassionally merge the
-       "master" branch instead of rebasing onto it.)*
-
-* If your branch includes more than one commit, do not merge with a
-  fast-forward:
+* 如果你的分支包含多过一个的 commmit , 不要使用快进模式。
 
   ```shell
   # good - ensures that a merge commit is created
