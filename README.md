@@ -1,48 +1,46 @@
-# Git Style Guide
+# Git 风格指南
+这是一个 Git 风格指南， 收到了来自 [*How to Get Your Change Into the Linux Kernel*](https://www.kernel.org/doc/Documentation/SubmittingPatches),
+[git man pages](http://git-scm.com/doc)
+和大量社区欢迎的实践的启发。
 
-This is a Git Style Guide inspired by [*How to Get Your Change Into the Linux
-Kernel*](https://www.kernel.org/doc/Documentation/SubmittingPatches),
-the [git man pages](http://git-scm.com/doc) and various practices popular
-among the community.
+# 目录
 
-If you feel like contributing, please do so! Fork the project and open a pull
-request.
-
-# Table of contents
-
-1. [Branches](#branches)
-2. [Commits](#commits)
-  1. [Messages](#messages)
-3. [Merging](#merging)
-4. [Misc.](#misc)
+1. [分支](#branches)
+2. [提交](#commits)
+  1. [消息](#messages)
+3. [合并](#merging)
+4. [杂项](#misc)
 
 ## Branches
 
-* Choose *short* and *descriptive* names:
+* 选择*短的*和*描述性*的名字来命名分支
 
   ```shell
-  # good
+  # 好！
   $ git checkout -b oauth-migration
 
-  # bad - too vague
+  # 错误，太模糊了！
   $ git checkout -b login_fix
   ```
 
-* Identifiers from corresponding tickets in an external service (eg. a GitHub
-  issue) are also good candidates for use in branch names. For example:
-
+* 来自外部的标识符也是很好的用作分支的名字，例如来自 Github 的 Issue 的
+  标号。
+  
   ```shell
   # GitHub issue #15
   $ git checkout -b issue-15
   ```
 
-* Use *dashes* to separate words.
+* 用破折号去分割单词
 
 * When several people are working on the *same* feature, it might be convenient
   to have *personal* feature branches and a *team-wide* feature branch.
   In that case, suffix the name of branch with a slash, followed by the
   person's name for the personal branches and *"master"* for the team-wide
   branch:
+* 当不同的人在同一个特性上工作的时候，这也许很方便去拥有个人的特性分支和一个面向全队的特性分支。
+  在这种情况下，将斜划线作为分支名的后缀，并接着一个人的名字来代表这个的个人分支，并用 master 
+  表示面向团队的分支。
 
   ```shell
   $ git checkout -b feature-a/master # team-wide branch
@@ -50,15 +48,11 @@ request.
   $ git checkout -b feature-a/nick # Nick's branch
   ```
 
-  [Merge](#merging) at will the personal branches to the team-wide branch
-  *after* rebasing onto it (in order to maintain a simple history). Eventually,
-  the team-wide branch will be merged to `master`.
+  在你变基后(rebase), 随意[合并](#merging) 你的特性分支到团队的特性分支。最终，
+  整个团队的分支会被合并到 master 分支。
 
-* Delete your branch from the upstream repository after it's merged (unless
-  there is a specific reason not to).
-
-  Tip: Use the following command while being on "master", to list merged
-  branches:
+* 当这个分支不再需要的时候，通常也就是Merge过后，删除这个特性分支。除非你有必须的原因。
+  Tip: 用下面的命令，清理干净分支。
 
   ```shell
   $ git branch --merged | grep -v "\*"
@@ -66,23 +60,18 @@ request.
 
 ## Commits
 
-* Each commit should be a single *logical change*. Don't make several
-  *logical changes* in one commit. For example, if a patch fixes a bug and
-  optimizes the performance of a feature, split it into two separate commits.
+* 每个提交应当只包含一个简单地的逻辑上的改变，不要在一个提交里改变多件事情。比如，如果一个 
+  Patch 修复了一个Bug，又改变了一个功能的效率， 把它分开吧。
 
-* Don't split a single *logical change* into several commits. For example,
-  the implementation of a feature and the corresponding tests should be in the
-  same commit.
+* 不要将一个改变分成多个提交。 例如一个功能的实现和他对应的测试应当在一个提交里提交。
 
-* Commit *early* and *often*. Small, self-contained commits are easier to
-  understand and revert when something goes wrong.
+* 快速和实时提交，小的，独立的提交更容易理解和撤销当出错的时候。
 
-* Commits should be ordered *logically*. For example, if *commit X* depends
-  on changes done in *commit Y*, then *commit Y* should come before *commit X*.
+* 提交应当*逻辑上*排序的得当。例如，如果 X 提交依赖于 Y，那么 Y 提交应该在 X 前面。
 
 ### Messages
 
-* Use the editor, not the terminal, when writing a commit message:
+* 使用编辑器, 而不是终端去编写你的提交消息
 
   ```shell
   # good
@@ -91,17 +80,14 @@ request.
   # bad
   $ git commit -m "Quick fix"
   ```
+  
+  来自终端的提交造成了一种不好的模式： 我必须包含所有事情在一行的空间里，这通常让人不知道你到底
+  在这个提交信息里到底想说什么，
 
-  Committing from the terminal encourages a mindset of having to fit everything
-  in a single line which usually results in non-informative, ambiguous commit
-  messages.
-
-* The summary line (ie. the first line of the message) should be
-  *descriptive* yet *succinct*. Ideally, it should be no longer than
-  *50 characters*. It should be capitalized and written in imperative present
-  tense. It should not end with a period since it is effectively the commit
+  概要行，通常是第一行应当是描述性而简明的，理想情况下，他应当不超过50个字符，用大写字母开头并且
+  有着迫切的表现欲。It should not end with a period since it is effectively the commit
   *title*:
-
+  
   ```shell
   # good - imperative present tense, capitalized, fewer than 50 characters
   Mark huge records as obsolete when clearing hinting faults
@@ -114,6 +100,7 @@ request.
   description. It should be wrapped to *72 characters* and explain *why*
   the change is needed, *how* it addresses the issue and what *side-effects*
   it might have.
+  
 
   It should also provide any pointers to related resources (eg. link to the
   corresponding issue in a bug tracker):
