@@ -24,7 +24,7 @@
   ```
 
 * 来自外部的标识符也是很好的用作分支的名字，例如来自 Github 的 Issue 的
-  标号。
+  序号。
 
   ```shell
   # GitHub issue #15
@@ -33,11 +33,6 @@
 
 * 用破折号去分割单词
 
-* When several people are working on the *same* feature, it might be convenient
-  to have *personal* feature branches and a *team-wide* feature branch.
-  In that case, suffix the name of branch with a slash, followed by the
-  person's name for the personal branches and *"master"* for the team-wide
-  branch:
 * 当不同的人在同一个特性上工作的时候，这也许很方便去拥有个人的特性分支和一个面向全队的特性分支。
   在这种情况下，将斜划线作为分支名的后缀，并接着一个人的名字来代表这个的个人分支，并用 master
   表示面向团队的分支。
@@ -187,27 +182,24 @@
 
 ## Misc.
 
-* There are various workflows and each one has its strengths and weaknesses.
-  Whether a workflow fits your case, depends on the team, the project and your
-  development procedures.
+* 有大量的工作流，每一个都有好有坏。一个工作流是否符合你的案例，取决于你的团队,
+  项目，和你的开发规律。
 
-  That said, it is important to actually *choose* a workflow and stick with it.
+  也就是说，实事求是的 *选择* 合适的工作流并且坚持他。
 
-* *Be consistent.* This is related to the workflow but also expands to things
-  like commit messages, branch names and tags. Having a consistent style
-  throughout the repository makes it easy to understand what is going on by
-  looking at the log, a commit message etc.
+* *保持连续性*， 这涉及到从工作流到你的 commit 消息，分支名还有 tag. 在你的整个
+  仓库里保持一样的习惯有助于理解你在项目里到底做了什么。
 
-* *Test before you push.* Do not push half-done work.
+* *push 前测试*， 不要提交未完成的工作。
 
-* Use [annotated tags](http://git-scm.com/book/en/v2/Git-Basics-Tagging#Annotated-Tags) for
-  marking releases or other important points in the history.
+* 使用 [annotated tags](http://git-scm.com/book/en/v2/Git-Basics-Tagging#Annotated-Tags) 标记
+  release 版本或者其他重要的时间点。
 
   Prefer [lightweight tags](http://git-scm.com/book/en/v2/Git-Basics-Tagging#Lightweight-Tags) for personal use, such as to bookmark commits
   for future reference.
 
-* Keep your repositories at a good shape by performing maintenance tasks
-  occasionally, in your local *and* remote repositories:
+* 保持你的仓库有一个好的状态，便于随时执行维护任务。不仅在你的本地
+  还有远程的仓库。
 
   * [`git-gc(1)`](http://git-scm.com/docs/git-gc)
   * [`git-prune(1)`](http://git-scm.com/docs/git-prune)
@@ -223,3 +215,6 @@ International license.
 # Credits
 
 Agis Anastasopoulos / [@agisanast](https://twitter.com/agisanast) / http://agis.io
+
+# Translators
+Qi Chen / aseaday@gmail.com
